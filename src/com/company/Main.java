@@ -5,6 +5,7 @@ import java.util.*;
 public class Main {
     private static Map<String,HeavenlyBody> solarSystem=new HashMap<>();
     private static Set<HeavenlyBody> planets=new HashSet<>();
+    private static Set<HeavenlyBody> moons=new HashSet<>();
     public static void main(String[] args) {
 	// write your code here
        HeavenlyBody temp=new HeavenlyBody("Earth",365);
@@ -19,12 +20,22 @@ public class Main {
         HeavenlyBody tempMoon=new HeavenlyBody("Moon",27);
         solarSystem.put(tempMoon.getName(), tempMoon);
         planets.add(tempMoon);
+        HeavenlyBody tempIo=new HeavenlyBody("Io",25);
+        solarSystem.put(tempIo.getName(), tempIo);
+        planets.add(tempIo);
         solarSystem.get("Earth").addMoon(tempMoon);
+        solarSystem.get("Io").addMoon(tempIo);
         System.out.println("All the planets");
         for(HeavenlyBody planet:planets)
         {
             System.out.println(planet.getName());
+            moons.addAll(planet.getSatellites());
         }
+        System.out.println("Moons");
+       for(HeavenlyBody moon:moons)
+       {
+           System.out.println(moon.getName());
+       }
         String choice;
        // Boolean quit=false;
         while(true)
@@ -33,7 +44,7 @@ public class Main {
             Scanner scanner=new Scanner(System.in);
 
             choice=scanner.nextLine();
-           
+
             if(choice.equals("")) {
                 System.out.println("Enter a non-empty string");
                 continue;
